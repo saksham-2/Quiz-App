@@ -63,61 +63,103 @@ function TakeQuiz() {
 
   if (!quiz) {
     return (
-      <div>
-        <input
-          type="text"
-          value={quizCode}
-          onChange={(e) => setQuizCode(e.target.value)}
-          placeholder="Enter Quiz Code"
-        />
-        <button onClick={fetchQuiz}>Fetch Quiz</button>
-        {message && <p>{message}</p>}
+      <div className="container">
+        <div className="quiz-entry">
+          <h1>Take a Quiz</h1>
+          <p className="instruction-text">Enter the quiz code provided by your quiz creator to begin.</p>
+          <div className="input-group">
+            <input
+              type="text"
+              value={quizCode}
+              onChange={(e) => setQuizCode(e.target.value)}
+              placeholder="Enter Quiz Code"
+              className="quiz-code-input"
+            />
+            <button onClick={fetchQuiz} className="primary-button">
+              Start Quiz
+            </button>
+          </div>
+          {message && <p className="message">{message}</p>}
+        </div>
       </div>
     );
   }
 
   const currentQuestion = quiz.questions[currentQuestionIndex];
+  const progress = ((currentQuestionIndex + 1) / quiz.questions.length) * 100;
 
   return (
-    <div>
-      <h1>{quiz.title}</h1>
-      {score === null ? (
-        <div>
-          <div>
-            <p>{currentQuestion.question}</p>
-            {currentQuestion.options.map((option, index) => (
-              <div key={index}>
-                <input
-                  type="radio"
-                  name={`question-${currentQuestionIndex}`}
-                  value={option}
-                  checked={selectedOptions[currentQuestionIndex] === option}
-                  onChange={() => handleOptionChange(currentQuestionIndex, option)}
-                />
-                <label>{option}</label>
+    <div className="container">
+      <div className="quiz-container">
+        <h1>{quiz.title}</h1>
+        
+        {score === null ? (
+          <div className="quiz-content">
+            <div className="progress-bar">
+              <div className="progress-fill" style={{ width: `${progress}%` }}></div>
+            </div>
+            <p className="question-counter">
+              Question {currentQuestionIndex + 1} of {quiz.questions.length}
+            </p>
+            
+            <div className="question-card">
+              <h2 className="question-text">{currentQuestion.question}</h2>
+              <div className="options-list">
+                {currentQuestion.options.map((option, index) => (
+                  <div 
+                    key={index} 
+                    className={`option-item ${selectedOptions[currentQuestionIndex] === option ? 'selected' : ''}`}
+                    onClick={() => handleOptionChange(currentQuestionIndex, option)}
+                  >
+                    <input
+                      type="radio"
+                      name={`question-${currentQuestionIndex}`}
+                      value={option}
+                      checked={selectedOptions[currentQuestionIndex] === option}
+                      onChange={() => {}}
+                      id={`option-${index}`}
+                    />
+                    <label htmlFor={`option-${index}`}>{option}</label>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div>
-            <button onClick={goToPreviousQuestion} disabled={currentQuestionIndex === 0}>
-              Previous
-            </button>
-            {currentQuestionIndex < quiz.questions.length - 1 ? (
-              <button onClick={goToNextQuestion}>
-                Next
+            </div>
+
+            <div className="navigation-buttons">
+              <button 
+                onClick={goToPreviousQuestion} 
+                disabled={currentQuestionIndex === 0}
+                className="nav-button"
+              >
+                ← Previous
               </button>
-            ) : (
-              <button onClick={calculateScore}>
-                Submit and View Score
-              </button>
-            )}
+              {currentQuestionIndex < quiz.questions.length - 1 ? (
+                <button onClick={goToNextQuestion} className="nav-button">
+                  Next →
+                </button>
+              ) : (
+                <button onClick={calculateScore} className="submit-button">
+                  Submit Quiz
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      ) : (
-        <div>
-          <h2>Your Score: {score} / {quiz.questions.length}</h2>
-        </div>
-      )}
+        ) : (
+          <div className="score-card">
+            <div className="score-content">
+              <h2>Quiz Completed! 🎉</h2>
+              <div className="score-display">
+                <span className="score-number">{score}</span>
+                <span className="score-divider">/</span>
+                <span className="total-questions">{quiz.questions.length}</span>
+              </div>
+              <p className="score-percentage">
+                {Math.round((score / quiz.questions.length) * 100)}% Correct
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

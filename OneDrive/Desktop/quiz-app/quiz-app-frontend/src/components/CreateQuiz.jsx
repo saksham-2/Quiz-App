@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { createQuiz } from '../services/api';
 import '../style.css';
 
-
 function CreateQuiz() {
   const [quizTitle, setQuizTitle] = useState('');
   const [questions, setQuestions] = useState([{ question: '', options: ['', '', '', ''], correctOption: '' }]);
@@ -39,54 +38,115 @@ function CreateQuiz() {
       setMessage('Error creating quiz.');
     }
   };
-  
-
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={quizTitle}
-          onChange={(e) => setQuizTitle(e.target.value)}
-          placeholder="Quiz Title"
-          required
-        />
-        {questions.map((question, index) => (
-          <div key={index}>
+    <div className="container">
+      <div className="create-quiz">
+        <h1>Create a New Quiz</h1>
+        <p className="instruction-text">
+          Design your quiz by adding questions and their options. Make sure to mark the correct answer for each question.
+        </p>
+
+        <form onSubmit={handleSubmit} className="quiz-form">
+          <div className="form-group">
+            <label htmlFor="quiz-title">Quiz Title</label>
             <input
+              id="quiz-title"
               type="text"
-              name="question"
-              value={question.question}
-              onChange={(e) => handleQuestionChange(index, e)}
-              placeholder="Question"
+              value={quizTitle}
+              onChange={(e) => setQuizTitle(e.target.value)}
+              placeholder="Enter an engaging title for your quiz"
               required
+              className="title-input"
             />
-            {question.options.map((option, optionIndex) => (
-              <input
-                key={optionIndex}
-                type="text"
-                value={option}
-                onChange={(e) => handleOptionChange(index, optionIndex, e)}
-                placeholder={`Option ${optionIndex + 1}`}
-                required
-              />
-            ))}
-            <input
-              type="text"
-              name="correctOption"
-              value={question.correctOption}
-              onChange={(e) => handleQuestionChange(index, e)}
-              placeholder="Correct Option"
-              required
-            />
-            <button type="button" onClick={() => deleteQuestion(index)}>Delete Question</button>
           </div>
-        ))}
-        <button type="button" onClick={addQuestion}>Add Question</button>
-        <button type="submit">Create Quiz</button>
-      </form>
-      {message && <p>{message}</p>}
+
+          {questions.map((question, index) => (
+            <div key={index} className="question-section">
+              <div className="question-header">
+                <h3>Question {index + 1}</h3>
+                <button 
+                  type="button" 
+                  onClick={() => deleteQuestion(index)}
+                  className="delete-button"
+                  title="Delete this question"
+                >
+                  ×
+                </button>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor={`question-${index}`}>Question Text</label>
+                <input
+                  id={`question-${index}`}
+                  type="text"
+                  name="question"
+                  value={question.question}
+                  onChange={(e) => handleQuestionChange(index, e)}
+                  placeholder="Type your question here"
+                  required
+                  className="question-input"
+                />
+              </div>
+
+              <div className="options-grid">
+                {question.options.map((option, optionIndex) => (
+                  <div key={optionIndex} className="form-group">
+                    <label htmlFor={`option-${index}-${optionIndex}`}>
+                      Option {optionIndex + 1}
+                    </label>
+                    <input
+                      id={`option-${index}-${optionIndex}`}
+                      type="text"
+                      value={option}
+                      onChange={(e) => handleOptionChange(index, optionIndex, e)}
+                      placeholder={`Enter option ${optionIndex + 1}`}
+                      required
+                      className="option-input"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor={`correct-${index}`}>Correct Answer</label>
+                <input
+                  id={`correct-${index}`}
+                  type="text"
+                  name="correctOption"
+                  value={question.correctOption}
+                  onChange={(e) => handleQuestionChange(index, e)}
+                  placeholder="Enter the correct option exactly as written above"
+                  required
+                  className="correct-input"
+                />
+              </div>
+            </div>
+          ))}
+
+          <div className="form-actions">
+            <button 
+              type="button" 
+              onClick={addQuestion}
+              className="add-button"
+            >
+              + Add Another Question
+            </button>
+            <button 
+              type="submit"
+              className="submit-button"
+            >
+              Create Quiz
+            </button>
+          </div>
+        </form>
+
+        {message && (
+          <div className="message success-message">
+            <p>{message}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
