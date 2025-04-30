@@ -326,10 +326,22 @@ button:active {
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
+  align-items: stretch;
+}
+
+.input-group input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.input-group button {
+  flex: 0 0 auto;
+  width: auto;
+  white-space: nowrap;
+  margin-top: 0;
 }
 
 .quiz-code-input {
-  flex: 1;
   font-size: 1.1rem;
   text-align: center;
   letter-spacing: 0.1em;
@@ -659,5 +671,21 @@ button:active {
 
   .add-button, .submit-button {
     width: 100%;
+  }
+}
+
+/* Responsive adjustments for quiz entry */
+@media (max-width: 640px) {
+  .input-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .input-group button {
+    width: 100%;
+  }
+
+  .quiz-entry {
+    padding: 1rem;
   }
 }
