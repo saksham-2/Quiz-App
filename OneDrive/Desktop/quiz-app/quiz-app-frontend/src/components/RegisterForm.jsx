@@ -30,7 +30,7 @@ function RegisterForm() {
         navigate('/quiz-options'); // Redirect to quiz options after signup
       }
     } catch (err) {
-      console.error("Register Error:", err.response?.data?.error || 'An error occurred');
+      // console.error("Register Error:", err.response?.data?.error || 'An error occurred');
       alert(err.response?.data?.error || "Registration failed");
     }
   };

@@ -29,7 +29,7 @@ function RegisterPage() {
         }, 2000);
       }
     } catch (err) {
-      console.error("Register Error:", err.response?.data?.error || 'An error occurred');
+      // console.error("Register Error:", err.response?.data?.error || 'An error occurred');
       setMessage(err.response?.data?.error || "Registration failed");
     }
   };

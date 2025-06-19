@@ -6,9 +6,11 @@ const connectDB = async () => {
     await mongoose.connect(db, {
      
     });
-    console.log('MongoDB Connected...');
+    // Do not log DB connection details in production
+    // console.log('MongoDB Connected...');
   } catch (err) {
-    console.error(err.message);
+    // Avoid logging sensitive error details in production
+    // console.error(err.message);
     process.exit(1);
   }
 };

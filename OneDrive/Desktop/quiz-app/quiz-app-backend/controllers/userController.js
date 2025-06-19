@@ -23,7 +23,6 @@ exports.signup = async (req, res) => {
 
     await newUser.save(); 
 
-   
     const payload = { user: { id: newUser.id } };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
 
@@ -33,7 +32,8 @@ exports.signup = async (req, res) => {
       msg: "Registration successful",
     });
   } catch (error) {
-    console.error("🚨 Signup Error:", error.message);
+    // Avoid logging sensitive error details in production
+    console.error("🚨 Signup Error");
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -42,29 +42,32 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log("🟡 Received Login Request:", { email, password });
+    // Do not log sensitive info like email or password
 
     const user = await User.findOne({ email });
     if (!user) {
-      console.log("🔴 No user found with this email");
+      // Optionally log generic info for debugging
+      // console.warn("Login attempt with invalid email");
       return res.status(400).json({ error: "Invalid email or password" });
     }
 
     const isPasswordCorrect = await user.comparePassword(password);
-    console.log("🔍 Password Match Result:", isPasswordCorrect);
+    // Do not log password match results
 
     if (!isPasswordCorrect) {
-      console.log("🔴 Password does not match");
+      // Optionally log generic info for debugging
+      // console.warn("Login attempt with incorrect password");
       return res.status(400).json({ error: "Invalid email or password" });
     }
 
     const payload = { user: { id: user.id } };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
 
-    console.log("🟢 Login successful!");
+    // Do not log successful logins with user info
     res.json({ token, user: { id: user.id, email: user.email }, msg: "Login successful" });
   } catch (err) {
-    console.error("🚨 Server Error:", err.message);
+    // Avoid logging sensitive error details in production
+    console.error("🚨 Server Error");
     res.status(500).json({ error: "Server error" });
   }
 };

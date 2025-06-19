@@ -12,9 +12,9 @@ function TakeQuiz() {
 
   const fetchQuiz = async () => {
     try {
-      console.log("🟡 Fetching quiz with code:", quizCode);
+      // console.log("🟡 Fetching quiz with code:", quizCode);
       const quizData = await getQuizByCode(quizCode); // ✅ Use quizData directly
-      console.log("✅ Quiz Data Fetched:", quizData);
+      // console.log("✅ Quiz Data Fetched:", quizData);
   
       if (!quizData || !quizData.quiz) {
         setMessage("Quiz not found. Please check the code.");
@@ -26,7 +26,7 @@ function TakeQuiz() {
       setSelectedOptions({});
       setScore(null);
     } catch (err) {
-      console.error("❌ Error fetching quiz:", err.message);
+      // console.error("❌ Error fetching quiz:", err.message);
       setMessage("Quiz not found");
     }
   };

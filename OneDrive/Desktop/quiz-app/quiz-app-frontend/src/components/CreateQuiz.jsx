@@ -34,7 +34,7 @@ function CreateQuiz() {
       const response = await createQuiz({ title: quizTitle, questions });
       setMessage(`Quiz created successfully! Your quiz code is: ${response.code}`);
     } catch (err) {
-      console.error('Create Quiz Error:', err.message);
+      // console.error('Create Quiz Error:', err.message);
       setMessage('Error creating quiz.');
     }
   };

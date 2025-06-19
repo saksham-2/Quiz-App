@@ -17,11 +17,10 @@ function LoginForm() {
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
         const decoded = jwtDecode(response.data.token);
-        console.log('Logged in as:', decoded);
         navigate('/quiz-options'); // Redirect to quiz options page
       }
     } catch (err) {
-      console.error(err.response?.data?.msg || 'An error occurred');
+      // console.error(err.response?.data?.msg || 'An error occurred');
     }
   };
 
