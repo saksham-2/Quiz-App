@@ -5,7 +5,7 @@ const generateQuizCode = () => {
   return Math.random().toString(36).substr(2, 6).toUpperCase();
 };
 
-// 🟢 Create Quiz
+
 
 exports.createQuiz = async (req, res) => {
   try {
@@ -42,11 +42,9 @@ exports.getQuizByCode = async (req, res) => {
     const { code } = req.params;
     console.log(`🔍 Searching for Quiz with Code: "${code}"`);
 
-    // Debugging: Print all stored quiz codes
     const allQuizzes = await Quiz.find({}, { code: 1, _id: 0 });
     console.log("📜 All Stored Quiz Codes in Database:", allQuizzes);
 
-    // Ensure case-insensitive & trimmed search
     const quiz = await Quiz.findOne({ code: { $regex: `^${code.trim()}$`, $options: "i" } });
 
     if (!quiz) {

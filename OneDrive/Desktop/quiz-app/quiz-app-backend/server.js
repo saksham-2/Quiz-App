@@ -12,18 +12,16 @@ app.use((req, res, next) => {
   });
   
 
-// Check if .env variables are loading
 console.log("🔍 JWT_SECRET:", process.env.JWT_SECRET);
 console.log("🔍 MONGO_URI:", process.env.MONGO_URI);
 
-// Connect Database
+
 connectDB();
 
-// Init Middleware
 app.use(express.json({ extended: false }));
 app.use(cors());
 
-// Define Routes
+
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/quiz", require("./routes/quizRoutes"));
 
