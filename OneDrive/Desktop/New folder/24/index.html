@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Landing Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">MyLogo</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="container hero-container">
+            <h1>Welcome to Our Modern Landing Page</h1>
+            <p>Discover our services and get started with us today. We provide the best solutions for your business.</p>
+            <a href="#contact" class="cta-btn">Get Started</a>
+        </div>
+    </section>
+    <!-- To-Do App Section -->
+    <section class="todo-section">
+        <div class="container todo-container">
+            <h2>To-Do List</h2>
+            <div class="todo-input-group">
+                <input type="text" id="todo-input" placeholder="Add a new task...">
+                <button id="add-todo-btn">Add</button>
+            </div>
+            <ul id="todo-list"></ul>
+        </div>
+    </section>
+    <footer>
+        <div class="container footer-container">
+            <p>&copy; 2024 MyCompany. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/twitter.svg" alt="Twitter" width="24"></a>
+                <a href="#"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" width="24"></a>
+                <a href="#"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" width="24"></a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Mobile nav toggle
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html> 
