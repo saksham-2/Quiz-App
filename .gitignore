@@ -1,0 +1,13 @@
+.env
+
+.env*
+.flaskenv*
+!.env.project
+!.env.vault
+node_modules/
+*.log
+.DS_Store
+*.lnk
+*.tmp
+*.swp
+*.vscode/

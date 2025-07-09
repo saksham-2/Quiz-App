@@ -1,0 +1,21 @@
+{
+  "name": "quiz-app-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "Backend for quiz app",
+  "dependencies": {
+    "argon2": "^0.41.1",
+    "axios": "^1.7.7",
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.12",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "mongoose": "^7.6.3"
+  }
+}
